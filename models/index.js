@@ -11,15 +11,15 @@ Product.belongsTo(Category);
 Category.hasMany(Product);
 
 // Products belongToMany Tags (through ProductTag)
-User.belongsToMany(Post, {
+Product.belongsToMany(Tag, {
   through: ProductTag,
-  as: 'ProductTag'
+  as: 'id'
 });
 
 // Tags belongToMany Products (through ProductTag)
-Tags.belongsToMany(Products, {
+Tag.belongsToMany(Product, {
   through: ProductTag,
-  as: 'ProductTag'
+  as: 'id'
 });
 
 module.exports = {
