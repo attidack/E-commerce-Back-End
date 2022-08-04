@@ -93,17 +93,17 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
-  Category.destroy({
+  Tag.destroy({
     where: {
       id: req.params.id
     }
   })
-    .then(dbCategoryData => {
-      if (!dbCategoryData) {
-        res.status(404).json({ message: 'No Category found with this id' });
+    .then(dbTagData => {
+      if (!dbTagData) {
+        res.status(404).json({ message: 'No tag found with this id' });
         return;
       }
-      res.json(dbCategoryData);
+      res.json(dbTagData);
     })
     .catch(err => {
       console.log(err);
