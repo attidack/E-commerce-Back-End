@@ -91,17 +91,17 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
   console.log('id', req.params.id);
-  Collection.destroy({
+  Category.destroy({
     where: {
       id: req.params.id
     }
   })
-    .then(CollectionData => {
-      if (!CollectionData) {
-        res.status(404).json({ message: 'No Collection found with this id' });
+    .then(dbCategoryData => {
+      if (!dbCategoryData) {
+        res.status(404).json({ message: 'No Category found with this id' });
         return;
       }
-      res.json(CollectionData);
+      res.json(dbCategoryData);
     })
     .catch(err => {
       console.log(err);
