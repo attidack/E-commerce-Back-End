@@ -69,6 +69,27 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
+  Collection.update(
+    {
+      title: req.body.title
+    },
+    {
+      where: {
+        id: req.params.id
+      }
+    }
+  )
+    .then(CollectionData => {
+      if (!CollectionData) {
+        res.status(404).json({ message: 'No Collection found with this id' });
+        return;
+      }
+      res.json(CollectionData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.delete('/:id', (req, res) => {
