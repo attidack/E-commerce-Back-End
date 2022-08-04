@@ -24,13 +24,13 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
-  Category.findOne({
+  Tag.findOne({
     where: {
       id: req.params.id
     },
     attributes: [
       'id',
-      'category_name'
+      'tag_name'
     ],
     include: [
       {
@@ -43,15 +43,14 @@ router.get('/:id', (req, res) => {
           'category_id'
         ]
       }
-
     ]
   })
-    .then(dbCategoryData => {
-      if (!dbCategoryData) {
-        res.status(404).json({ message: 'No Category found with this id' });
+    .then(dbTagData => {
+      if (!dbTagData) {
+        res.status(404).json({ message: 'No Tag found with this id' });
         return;
       }
-      res.json(dbCategoryData);
+      res.json(dbTagData);
     })
     .catch(err => {
       console.log(err);
