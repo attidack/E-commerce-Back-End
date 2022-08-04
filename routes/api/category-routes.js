@@ -90,6 +90,23 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
+  console.log('id', req.params.id);
+  Collection.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(CollectionData => {
+      if (!CollectionData) {
+        res.status(404).json({ message: 'No Collection found with this id' });
+        return;
+      }
+      res.json(CollectionData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;
