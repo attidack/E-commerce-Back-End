@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
   Category.create({
     category_name: req.body.category_name,
     })
-      .then(CollectionData => res.json(CollectionData))
+      .then(dbCategoryData => res.json(dbCategoryData))
       .catch(err => {
         console.log(err);
         res.status(500).json(err);
@@ -69,22 +69,18 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
-  Collection.update(
-    {
-      title: req.body.title
-    },
-    {
+  Category.update(req.body, {
       where: {
         id: req.params.id
       }
     }
   )
-    .then(CollectionData => {
-      if (!CollectionData) {
-        res.status(404).json({ message: 'No Collection found with this id' });
+    .then(dbCategoryData => {
+      if (!dbCategoryData) {
+        res.status(404).json({ message: 'No Category found with this id' });
         return;
       }
-      res.json(CollectionData);
+      res.json(dbCategoryData);
     })
     .catch(err => {
       console.log(err);
